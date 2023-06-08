@@ -77,3 +77,5 @@ function changeShift(database, courseName, newShift) {
 }
 
 const updatedSchool = changeShift(school, 'Python', 'Noite')
+
+console.log(updatedSchool)
