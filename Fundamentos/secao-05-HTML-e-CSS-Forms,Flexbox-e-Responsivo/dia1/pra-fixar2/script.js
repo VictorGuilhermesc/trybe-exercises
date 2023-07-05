@@ -13,7 +13,7 @@
 
     inputText.addEventListener('keypress', (event) => {
         const character = event.key;
-        if (character !== 'a'){
+        if (character !== 'a') {
             event.preventDefault();
 
         }
