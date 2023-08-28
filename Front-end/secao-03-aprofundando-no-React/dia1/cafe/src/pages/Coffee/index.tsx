@@ -1,6 +1,39 @@
+import { useParams, Link } from 'react-router-dom';
+import { coffeeList } from '../../data';
+
 function Coffee() {
+  const params = useParams();
+  const currentCoffee = coffeeList.find((coffee) => coffee.slug === params.coffee);
+
+  if (!currentCoffee) {
+    return (
+      <div>
+        <h1>Oops! Esse café não está na nossa lista</h1>
+        <h2>
+          Acesse a
+          {' '}
+          <Link to="/coffees">página de cafés</Link>
+          {' '}
+          e selecione um de nossos produtos
+        </h2>
+      </div>
+    );
+  }
   return (
-    <h1>Coffee page</h1>
+    <div>
+      <h1>{ currentCoffee.title }</h1>
+      <p>{ currentCoffee.description }</p>
+      <div>
+        <h2>Ingredientes</h2>
+        <ul>
+          {
+            // eslint-disable-next-line max-len
+            currentCoffee.ingredients.map((ingredient) => <li key={ ingredient }>{ ingredient }</li>)
+          }
+        </ul>
+      </div>
+      <img src={ currentCoffee.image } alt={ currentCoffee.title } />
+    </div>
   );
 }
 
