@@ -1,14 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Initial from './Initial';
-import Counter from './Counter';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={ <Initial /> } />
-      <Route path="/counter" element={ <Counter /> } />
-    </Routes>
+    <div className="App">
+      <label htmlFor="id-email">
+        Email
+        <input id="id-email" type="email" />
+      </label>
+      <input data-testid="id-send" type="button" value="Enviar" />
+      <input type="button" value="Voltar" />
+    </div>
   );
 }
 
