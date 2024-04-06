@@ -1,12 +1,11 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
-async function main() {
-  try {
-    const data = await fs.readFile('./meu-arquivo.txt', 'utf-8');
-    console.log(data);
-  } catch (err) {
-    console.error(`Erro ao ler o arquivo: ${err.message}`);
-  }
+const nomeDoArquivo = 'meu-arquivo.txt';
+
+try {
+  const data = fs.readSync(nomeDoArquivo, 'utf8');
+  console.log(data);
+} catch (err) {
+  console.error(`Erro ao ler o arquivo: ${err.path}`);
+  console.log(err);
 }
-
-main()
