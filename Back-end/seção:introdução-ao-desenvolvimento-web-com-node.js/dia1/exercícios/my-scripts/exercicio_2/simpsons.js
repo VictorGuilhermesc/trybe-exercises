@@ -27,10 +27,22 @@ async function getSimpsonById(id) {
 }
 
 
+async function filterSimpsons() {
+  const fileContent = await fs
+    .readFile('./simpsons.json', 'utf-8');
+
+  const simpsons = JSON.parse(fileContent);
+  const newArray = simpsons.filter((simpson) => simpson.id !== '10' && simpson.id !== '6');
+  await fs.writeFile('./simpsons.json', JSON.stringify(newArray));
+}
+
+
+
 function main() {
   //readAllComAsyncAwait();
-  getSimpsonById(3)
-  .then((simpson) => console.log(simpson));
+  //getSimpsonById(3)
+  //.then((simpson) => console.log(simpson));
+  filterSimpsons();
 }
 
 main();
