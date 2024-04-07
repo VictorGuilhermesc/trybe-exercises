@@ -57,13 +57,27 @@ async function addNelsonFamily(){
   await fs.writeFile('./simpsonsFamily.json', JSON.stringify(simpsonsFamily));
 }
 
+async function replaceNelson() {
+  const fileContent = await fs
+  .readFile('./simpsonsFamily.json', 'utf-8')
+  const simpson = JSON.parse(fileContent);
+  
+  const simpsonWithoutNelson = simpson.filter((simpson) => simpson.id !== '8');
+
+  const simpsonWithMaggie = simpsonWithoutNelson
+  .concat([{ id: '15', name: 'Maggie Simpson'}]);
+
+  return fs.writeFile('./simpsonsFamily.json', JSON.stringify(simpsonWithMaggie));
+}
+
 function main() {
   //readAllComAsyncAwait();
   //getSimpsonById(3)
   //.then((simpson) => console.log(simpson));
   //filterSimpsons();
   //createSimpsonsFamily()
-  addNelsonFamily()
+  //addNelsonFamily()
+  replaceNelson()
 }
 
 main();
