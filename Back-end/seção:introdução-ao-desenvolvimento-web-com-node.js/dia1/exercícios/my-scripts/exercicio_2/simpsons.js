@@ -48,13 +48,22 @@ async function createSimpsonsFamily() {
 
 }
 
+async function addNelsonFamily(){
+  const fileContent = await fs
+  .readFile('./simpsonsFamily.json', 'utf-8');
+
+  const simpsonsFamily = JSON.parse(fileContent);
+  simpsonsFamily.push({id: '8', name: 'Nelson Muntz'});
+  await fs.writeFile('./simpsonsFamily.json', JSON.stringify(simpsonsFamily));
+}
 
 function main() {
   //readAllComAsyncAwait();
   //getSimpsonById(3)
   //.then((simpson) => console.log(simpson));
   //filterSimpsons();
-  createSimpsonsFamily()
+  //createSimpsonsFamily()
+  addNelsonFamily()
 }
 
 main();
