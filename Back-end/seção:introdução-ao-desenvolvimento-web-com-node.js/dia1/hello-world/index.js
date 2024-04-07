@@ -1,7 +1,6 @@
 const readline = require('readline-sync');
 
 const name = readline.question('Qual seu nome? ');
-const idade = readline.questionInt('Qual a sua idade? ');
+const age = readline.questionInt('Qual sua idade? ');
 
-console.log(`Hello, ${name}! You are ${idade} years old!`);
-
+console.log(`Hello, ${name}! You are ${age} years old!`);
