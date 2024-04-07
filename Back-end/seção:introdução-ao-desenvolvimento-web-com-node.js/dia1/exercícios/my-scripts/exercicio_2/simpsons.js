@@ -13,8 +13,24 @@ function readAllComAsyncAwait() {
     });
 }
 
+async function getSimpsonById(id) {
+  const fileContent = await fs
+    .readFile('./simpsons.json', 'utf-8');
+  
+  const simpsons = JSON.parse(fileContent);
+  const chosenSimpson = simpsons.find((simpsons) => Number(simpsons.id) === id)
+  if(!chosenSimpson){
+    throw new Error ('id não encontrado');
+
+  }
+  return chosenSimpson
+}
+
+
 function main() {
-  readAllComAsyncAwait();
+  //readAllComAsyncAwait();
+  getSimpsonById(3)
+  .then((simpson) => console.log(simpson));
 }
 
 main();
