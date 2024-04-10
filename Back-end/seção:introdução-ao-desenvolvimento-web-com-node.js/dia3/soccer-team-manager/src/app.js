@@ -21,6 +21,17 @@ const teams = [
 
 // app.get('/', (req, res) => res.status(200).json({ teams }))
 
+const existingId = (req, res, next) => {
+  const id = Number(req.params.id);
+  
+  if (teams.some((t) => t.id === id)) {
+    // se existe, a requisição segue para o próximo middleware
+    return next();
+  }
+  // se não existe, então vamos retornar o status HTTP 404
+  res.sendStatus(404);
+};
+
 // adiciona um novo time
 app.post('/teams', (req, res) => {
   const newTeam = { ...req.body };
@@ -30,7 +41,7 @@ app.post('/teams', (req, res) => {
 });
 
 // atualiza os times pelo id
-app.put('/teams/:id', (req, res) => {
+app.put('/teams/:id', existingId, (req, res) => {
   const { id } = req.params;
   const { name, initials } = req.body;
 
@@ -49,6 +60,24 @@ app.put('/teams/:id', (req, res) => {
 app.get('/teams/:id', (req, res) => {
   const team = teams.find(({ id }) => id === Number(req.params.id));
   res.status(200).json(team);
+});
+
+app.put('/teams/:id', existingId, (req, res) => {
+  const id = Number(req.params.id);
+  const team = teams.find((t) => t.id === id);
+  // não precisamos mais conferir, com certeza o team existe
+  const index = teams.indexOf(team);
+  const updated = { id, ...req.body };
+  teams.splice(index, 1, updated);
+  res.status(201).json(updated);
+});
+
+app.delete('/teams/:id', existingId, (req, res) => {
+  const id = Number(req.params.id);
+  const team = teams.find((t) => t.id === id);
+  const index = teams.indexOf(team);
+  teams.splice(index, 1);
+  res.sendStatus(204);
 });
 
 module.exports = app;
